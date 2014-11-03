@@ -9,13 +9,15 @@ function check(){
 }
 
 PREFIX=$1
+optpath=$PREFIX/opt/XIMEA
+
+echo "will install ximea api to prefix $PREFIX/"
 
 rm -rf package*
 wget http://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
 check
 
 tar xzf XIMEA_Linux_SP.tgz && cd package
-cp version_LINUX_SP.txt $optpath
 check
 
 arch=$(uname -m)
@@ -30,7 +32,6 @@ elif [ "$arch" == "x86_64" ]; then
 fi
 KV=$(uname -r).
 
-optpath=$PREFIX/opt/XIMEA
 mkdir -p $PREFIX/bin $PREFIX/lib $PREFIX/usr/lib $PREFIX/usr/include 2>/dev/null
 cp version_LINUX_SP.txt $optpath
 check
