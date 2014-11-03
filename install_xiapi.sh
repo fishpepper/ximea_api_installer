@@ -57,9 +57,9 @@ fi
 
 echo "installing API "
 
-cp api/X$platform_bits/libm3api.so $PREFIX/usr/lib/libm3api.so.0.0.0 && \
-ln -snf libm3api.so.0.0.0 $PREFIX/usr/lib/libm3api.so.0 && \
-ln -snf libm3api.so.0.0.0 $PREFIX/usr/lib/libm3api.so
+cp api/X$platform_bits/libm3api.so $PREFIX/lib/libm3api.so.0.0.0 && \
+ln -snf libm3api.so.0.0.0 $PREFIX/lib/libm3api.so.0 && \
+ln -snf libm3api.so.0.0.0 $PREFIX/lib/libm3api.so
 check
 
 cp -R include $optpath/ && \
