@@ -1,5 +1,5 @@
 diff --git a/cmake/OpenCVFindXimea.cmake b/cmake/OpenCVFindXimea.cmake
-index 5f85a13..06c84b5 100644
+index 5f85a13..09f0463 100644
 --- a/cmake/OpenCVFindXimea.cmake
 +++ b/cmake/OpenCVFindXimea.cmake
 @@ -31,8 +31,19 @@ if(WIN32)
@@ -19,7 +19,7 @@ index 5f85a13..06c84b5 100644
 +    # set folders
 +    set(XIMEA_PATH ${CMAKE_INSTALL_PREFIX}/opt/XIMEA/include)
 +    set(XIMEA_LIBRARY_DIR ${CMAKE_INSTALL_PREFIX}/lib)
-+  else if(EXISTS /opt/XIMEA)
++  elseif(EXISTS /opt/XIMEA)
      set(XIMEA_FOUND 1)
      # set folders
      set(XIMEA_PATH /opt/XIMEA/include)
@@ -36,3 +36,4 @@ index 891b961..a3f182c 100644
      {
          xiStartAcquisition(hmv);
          mvret = xiGetImage(hmv, timeout, &image);
+
