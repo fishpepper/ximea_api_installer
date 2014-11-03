@@ -72,11 +72,12 @@ ln -snf libm3api.so.0.0.0 $PREFIX/lib/libm3api.so.0 && \
 ln -snf libm3api.so.0.0.0 $PREFIX/lib/libm3api.so
 check
 
-cp -R include $optpath/ && \
+mkdir -p  $optpath/include/m3api && \
+cp -R include $optpath/include/m3api && \
 cp -R examples $optpath/
 check
 
-ln -snf $optpath/include $PREFIX/usr/include/m3api
+ln -snf $optpath/include/m3api $PREFIX/usr/include/m3api
 check
 
 #echo
