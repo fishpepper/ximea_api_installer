@@ -14,7 +14,7 @@ optpath=$PREFIX/opt/XIMEA
 echo "will install ximea api to prefix $PREFIX/"
 
 rm -rf package*
-#wget http://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
+wget http://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
 check
 
 tar xzf XIMEA_Linux_SP.tgz && cd package
