@@ -1,0 +1,38 @@
+diff --git a/cmake/OpenCVFindXimea.cmake b/cmake/OpenCVFindXimea.cmake
+index 5f85a13..06c84b5 100644
+--- a/cmake/OpenCVFindXimea.cmake
++++ b/cmake/OpenCVFindXimea.cmake
+@@ -31,8 +31,19 @@ if(WIN32)
+   else()
+     set(XIMEA_FOUND 0)
+   endif()
++elseif(APPLE)
++  if(EXISTS /Library/Frameworks/m3api.framework)
++    set(XIMEA_FOUND 1)
++  else()
++    set(XIMEA_FOUND 0)
++  endif()
+ else()
+-  if(EXISTS /opt/XIMEA)
++  if(EXISTS ${CMAKE_INSTALL_PREFIX}/opt/XIMEA)
++    set(XIMEA_FOUND 1)
++    # set folders
++    set(XIMEA_PATH ${CMAKE_INSTALL_PREFIX}/opt/XIMEA/include)
++    set(XIMEA_LIBRARY_DIR ${CMAKE_INSTALL_PREFIX}/lib)
++  else if(EXISTS /opt/XIMEA)
+     set(XIMEA_FOUND 1)
+     # set folders
+     set(XIMEA_PATH /opt/XIMEA/include)
+diff --git a/modules/highgui/src/cap_ximea.cpp b/modules/highgui/src/cap_ximea.cpp
+index 891b961..a3f182c 100644
+--- a/modules/highgui/src/cap_ximea.cpp
++++ b/modules/highgui/src/cap_ximea.cpp
+@@ -156,7 +156,7 @@ bool CvCaptureCAM_XIMEA::grabFrame()
+     image.size = sizeof(XI_IMG);
+     int mvret = xiGetImage( hmv, timeout, &image);
+ 
+-    if(mvret == MM40_ACQUISITION_STOPED)
++    if(mvret == XI_ACQUISITION_STOPED) //MM40_ACQUISITION_STOPED)
+     {
+         xiStartAcquisition(hmv);
+         mvret = xiGetImage(hmv, timeout, &image);
