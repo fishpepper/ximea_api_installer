@@ -14,7 +14,7 @@ optpath=$PREFIX/opt/XIMEA
 echo "will install ximea api to prefix $PREFIX/"
 
 rm -rf package*
-wget http://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
+#wget http://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
 check
 
 tar xzf XIMEA_Linux_SP.tgz && cd package
@@ -32,9 +32,19 @@ elif [ "$arch" == "x86_64" ]; then
 fi
 KV=$(uname -r).
 
-mkdir -p $PREFIX/bin $PREFIX/lib $PREFIX/usr/lib $PREFIX/usr/include $optpath $optpath/bin $optpath/lib 2>/dev/null
+mkdir -p $PREFIX/bin $PREFIX/lib/pkgconfig $PREFIX/usr/lib $PREFIX/usr/include $optpath $optpath/bin $optpath/lib 2>/dev/null
 cp version_LINUX_SP.txt $optpath
 check
+
+#create pkg config
+VERSION_REL=`cat version_LINUX_SP.txt |cut -d "_"  -f 3|cut -d "V" -f 2`
+VERSION_MAJOR=`cat version_LINUX_SP.txt |cut -d "_"  -f 4 | sed 's/^0*//'`
+VERSION_MINOR=`cat version_LINUX_SP.txt |cut -d "_"  -f 5 | sed 's/^0*//'`
+
+echo -ne "prefix=$PREFIX\nexec_prefix=\${prefix}\nlibdir=\nincludedir=\${prefix}/usr/include/\n\nName: xiapi\nDescription: ximea api\nVersion: $VERSION_REL.$VERSION_MAJOR.$VERSION_MINOR\nLibs:  \${exec_prefix}/lib/m3api.so\nCflags: -I\${includedir}\n" > $PREFIX/lib/pkgconfig/xiapi.pc
+check
+
+
 
 echo "installing libusb (ximea version)"
 cp -d libs/libusb/vanillaX$platform_bits/lib* $PREFIX/lib/
