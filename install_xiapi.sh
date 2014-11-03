@@ -11,8 +11,8 @@ function check(){
 PREFIX=$1
 
 rm -rf package*
-#wget http://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
-#check
+wget http://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
+check
 
 tar xzf XIMEA_Linux_SP.tgz && cd package
 cp version_LINUX_SP.txt $optpath
