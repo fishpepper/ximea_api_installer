@@ -32,7 +32,7 @@ elif [ "$arch" == "x86_64" ]; then
 fi
 KV=$(uname -r).
 
-mkdir -p $PREFIX/bin $PREFIX/lib $PREFIX/usr/lib $PREFIX/usr/include 2>/dev/null
+mkdir -p $PREFIX/bin $PREFIX/lib $PREFIX/usr/lib $PREFIX/usr/include $optpath 2>/dev/null
 cp version_LINUX_SP.txt $optpath
 check
 
