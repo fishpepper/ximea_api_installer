@@ -77,7 +77,7 @@ check
 
 
 echo "installing XIMEA-GenTL library"
-cp libs/gentl/X$platform_bits/libXIMEA_GenTL.* $optpath/lib
+cp libs/gentl/X$platform_bits/libXIMEA_GenTL.* $optpath/lib/
 check
 
 echo "installing xiSample"
