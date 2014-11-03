@@ -23,11 +23,32 @@ index 5f85a13..09f0463 100644
      set(XIMEA_FOUND 1)
      # set folders
      set(XIMEA_PATH /opt/XIMEA/include)
+diff --git a/modules/highgui/CMakeLists.txt b/modules/highgui/CMakeLists.txt
+index 7d2547b..4a59514 100644
+--- a/modules/highgui/CMakeLists.txt
++++ b/modules/highgui/CMakeLists.txt
+@@ -170,7 +170,7 @@ if(HAVE_XIMEA)
+     link_directories("${XIMEA_LIBRARY_DIR}")
+   endif()
+   if(X86_64)
+-    list(APPEND HIGHGUI_LIBRARIES m3apiX64)
++    list(APPEND HIGHGUI_LIBRARIES m3api)
+   else()
+     list(APPEND HIGHGUI_LIBRARIES m3api)
+   endif()
 diff --git a/modules/highgui/src/cap_ximea.cpp b/modules/highgui/src/cap_ximea.cpp
-index 891b961..a3f182c 100644
+index 891b961..4f3f75b 100644
 --- a/modules/highgui/src/cap_ximea.cpp
 +++ b/modules/highgui/src/cap_ximea.cpp
-@@ -156,7 +156,7 @@ bool CvCaptureCAM_XIMEA::grabFrame()
+@@ -1,7 +1,6 @@
+ #include "precomp.hpp"
+ 
+ #include "xiApi.h"
+-#include "xiExt.h"
+ #include "m3Api.h"
+ 
+ /**********************************************************************************/
+@@ -156,7 +155,7 @@ bool CvCaptureCAM_XIMEA::grabFrame()
      image.size = sizeof(XI_IMG);
      int mvret = xiGetImage( hmv, timeout, &image);
  
@@ -36,4 +57,3 @@ index 891b961..a3f182c 100644
      {
          xiStartAcquisition(hmv);
          mvret = xiGetImage(hmv, timeout, &image);
-
