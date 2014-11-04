@@ -36,9 +36,22 @@ index 1f86abb..c73375e 100644
      // Properties for Android cameras
      CV_CAP_PROP_ANDROID_FLASH_MODE = 8001,
 diff --git a/modules/highgui/src/cap_ximea.cpp b/modules/highgui/src/cap_ximea.cpp
-index 13a4538..d697fae 100644
+index 13a4538..0a152d0 100644
 --- a/modules/highgui/src/cap_ximea.cpp
 +++ b/modules/highgui/src/cap_ximea.cpp
+@@ -209,10 +209,10 @@ void CvCaptureCAM_XIMEA::resetCvImage()
+         if(frame) cvReleaseImage(&frame);
+         frame = NULL;
+ 
+-        switch( image.frm)
++        switch(format)
+         {
+         case XI_MONO8       :
+-        case XI_RAW8        : frame = cvCreateImage(cvSize( image.width, image.height), IPL_DEPTH_8U, 1); break;
++        case XI_RAW8        : frame = cvCreateImage(cvSize( image.width, image.height), IPL_DEPTH_8U, 1); printf(" NEWWWW\n"); break;
+         case XI_MONO16      :
+         case XI_RAW16       : frame = cvCreateImage(cvSize( image.width, image.height), IPL_DEPTH_16U, 1); break;
+         case XI_RGB24       :
 @@ -263,6 +263,7 @@ double CvCaptureCAM_XIMEA::getProperty( int property_id )
      case CV_CAP_PROP_XI_AE_MAX_LIMIT  : xiGetParamInt( hmv, XI_PRM_EXP_PRIORITY, &ival); return ival;
      case CV_CAP_PROP_XI_AG_MAX_LIMIT  : xiGetParamFloat( hmv, XI_PRM_AG_MAX_LIMIT, &fval); return fval;
@@ -47,7 +60,7 @@ index 13a4538..d697fae 100644
      case CV_CAP_PROP_XI_TIMEOUT       : return timeout;
  
      }
-@@ -307,6 +308,7 @@ bool CvCaptureCAM_XIMEA::setProperty( int property_id, double value )
+@@ -307,9 +308,13 @@ bool CvCaptureCAM_XIMEA::setProperty( int property_id, double value )
      case CV_CAP_PROP_XI_AE_MAX_LIMIT  : mvret = xiSetParamInt( hmv, XI_PRM_EXP_PRIORITY, ival); break;
      case CV_CAP_PROP_XI_AG_MAX_LIMIT  : mvret = xiSetParamFloat( hmv, XI_PRM_AG_MAX_LIMIT, fval); break;
      case CV_CAP_PROP_XI_AEAG_LEVEL    : mvret = xiSetParamInt( hmv, XI_PRM_AEAG_LEVEL, ival); break;
@@ -55,3 +68,9 @@ index 13a4538..d697fae 100644
      case CV_CAP_PROP_XI_TIMEOUT       : timeout = ival; break;
      }
  
++    if (property_id == CV_CAP_PROP_XI_DATA_FORMAT) 
++        resetCvImage();
++
+     if(mvret != XI_OK)
+     {
+         errMsg("Set parameter error", mvret);
