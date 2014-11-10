@@ -37,9 +37,18 @@ index 1f86abb..ff57dea 100644
      // Properties for Android cameras
      CV_CAP_PROP_ANDROID_FLASH_MODE = 8001,
 diff --git a/modules/highgui/src/cap_ximea.cpp b/modules/highgui/src/cap_ximea.cpp
-index 13a4538..a58b12c 100644
+index 13a4538..881e994 100644
 --- a/modules/highgui/src/cap_ximea.cpp
 +++ b/modules/highgui/src/cap_ximea.cpp
+@@ -81,7 +81,7 @@ bool CvCaptureCAM_XIMEA::open( int wIndex )
+     int height  = 0;
+     int isColor = 0;
+ 
+-    // always use auto exposure/gain
++    // always use auto exposure/gain.
+     mvret = xiSetParamInt( hmv, XI_PRM_AEAG, 1);
+     HandleXiResult(mvret);
+ 
 @@ -209,10 +209,10 @@ void CvCaptureCAM_XIMEA::resetCvImage()
          if(frame) cvReleaseImage(&frame);
          frame = NULL;
