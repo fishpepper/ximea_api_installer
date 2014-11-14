@@ -24,7 +24,7 @@ index 2d93292..6daf9a7 100644
      # set folders
      set(XIMEA_PATH /opt/XIMEA/include)
 diff --git a/modules/highgui/include/opencv2/highgui/highgui_c.h b/modules/highgui/include/opencv2/highgui/highgui_c.h
-index 1f86abb..15c2db8 100644
+index 1f86abb..cccbf5f 100644
 --- a/modules/highgui/include/opencv2/highgui/highgui_c.h
 +++ b/modules/highgui/include/opencv2/highgui/highgui_c.h
 @@ -444,6 +444,10 @@ enum
@@ -33,13 +33,13 @@ index 1f86abb..15c2db8 100644
      CV_CAP_PROP_XI_TIMEOUT       = 420,       // Image capture timeout in milliseconds
 +    CV_CAP_PROP_XI_ACQ_TIMING_MODE = 421,     // timing mode
 +    CV_CAP_PROP_XI_RECENT_FRAME  = 422,       // return recent frame or from buffer?
-+    CV_CAP_PROP_XI_BUFFERS_QUE_SIZE = 423,    // buffer count
++    CV_CAP_PROP_XI_BUFFERS_QUEUE_SIZE = 423,    // buffer count
 +    CV_CAP_PROP_XI_BPC           = 424,       // bad pixel correction
  
      // Properties for Android cameras
      CV_CAP_PROP_ANDROID_FLASH_MODE = 8001,
 diff --git a/modules/highgui/src/cap_ximea.cpp b/modules/highgui/src/cap_ximea.cpp
-index 13a4538..2521ed2 100644
+index 13a4538..63ece10 100644
 --- a/modules/highgui/src/cap_ximea.cpp
 +++ b/modules/highgui/src/cap_ximea.cpp
 @@ -209,10 +209,10 @@ void CvCaptureCAM_XIMEA::resetCvImage()
@@ -64,7 +64,7 @@ index 13a4538..2521ed2 100644
 +    case CV_CAP_PROP_XI_RECENT_FRAME  :  xiGetParamInt( hmv, XI_PRM_RECENT_FRAME, &ival); return ival;
      case CV_CAP_PROP_XI_TIMEOUT       : return timeout;
 -
-+    case CV_CAP_PROP_XI_BUFFERS_QUE_SIZE : xiGetParamInt( hmv, XI_PRM_BUFFERS_QUEUE_SIZE, &ival); return ival;
++    case CV_CAP_PROP_XI_BUFFERS_QUEUE_SIZE : xiGetParamInt( hmv, XI_PRM_BUFFERS_QUEUE_SIZE, &ival); return ival;
 +    default: break;
      }
      return 0;
@@ -77,7 +77,7 @@ index 13a4538..2521ed2 100644
 +    case CV_CAP_PROP_XI_BPC           :  mvret = xiSetParamInt( hmv, XI_PRM_BPC, ival); break;
 +    case CV_CAP_PROP_XI_RECENT_FRAME  : mvret = xiSetParamInt( hmv, XI_PRM_RECENT_FRAME, ival); break;
      case CV_CAP_PROP_XI_TIMEOUT       : timeout = ival; break;
-+    case CV_CAP_PROP_XI_BUFFERS_QUE_SIZE : mvret = xiSetParamInt( hmv, XI_PRM_BUFFERS_QUEUE_SIZE, ival); break;
++    case CV_CAP_PROP_XI_BUFFERS_QUEUE_SIZE : mvret = xiSetParamInt( hmv, XI_PRM_BUFFERS_QUEUE_SIZE, ival); break;
 +    default: break;
      }
  
