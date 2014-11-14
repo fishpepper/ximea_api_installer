@@ -24,20 +24,21 @@ index 2d93292..6daf9a7 100644
      # set folders
      set(XIMEA_PATH /opt/XIMEA/include)
 diff --git a/modules/highgui/include/opencv2/highgui/highgui_c.h b/modules/highgui/include/opencv2/highgui/highgui_c.h
-index 1f86abb..ff57dea 100644
+index 1f86abb..8243990 100644
 --- a/modules/highgui/include/opencv2/highgui/highgui_c.h
 +++ b/modules/highgui/include/opencv2/highgui/highgui_c.h
-@@ -444,6 +444,8 @@ enum
+@@ -444,6 +444,9 @@ enum
      CV_CAP_PROP_XI_AG_MAX_LIMIT  = 418,      // Maximum limit of gain in AEAG procedure
      CV_CAP_PROP_XI_AEAG_LEVEL    = 419,       // Average intensity of output signal AEAG should achieve(in %)
      CV_CAP_PROP_XI_TIMEOUT       = 420,       // Image capture timeout in milliseconds
 +    CV_CAP_PROP_XI_ACQ_TIMING_MODE = 421,     // timing mode
-+    CV_CAP_PROP_XI_BPC           = 422,       // bad pixel correction
++    CV_CAP_PROP_XI_RECENT_FRAME  = 422,       // return recent frame or from buffer?
++    CV_CAP_PROP_XI_BPC           = 423,       // bad pixel correction
  
      // Properties for Android cameras
      CV_CAP_PROP_ANDROID_FLASH_MODE = 8001,
 diff --git a/modules/highgui/src/cap_ximea.cpp b/modules/highgui/src/cap_ximea.cpp
-index 13a4538..a58b12c 100644
+index 13a4538..520a064 100644
 --- a/modules/highgui/src/cap_ximea.cpp
 +++ b/modules/highgui/src/cap_ximea.cpp
 @@ -209,10 +209,10 @@ void CvCaptureCAM_XIMEA::resetCvImage()
@@ -53,21 +54,23 @@ index 13a4538..a58b12c 100644
          case XI_MONO16      :
          case XI_RAW16       : frame = cvCreateImage(cvSize( image.width, image.height), IPL_DEPTH_16U, 1); break;
          case XI_RGB24       :
-@@ -263,6 +263,8 @@ double CvCaptureCAM_XIMEA::getProperty( int property_id )
+@@ -263,6 +263,9 @@ double CvCaptureCAM_XIMEA::getProperty( int property_id )
      case CV_CAP_PROP_XI_AE_MAX_LIMIT  : xiGetParamInt( hmv, XI_PRM_EXP_PRIORITY, &ival); return ival;
      case CV_CAP_PROP_XI_AG_MAX_LIMIT  : xiGetParamFloat( hmv, XI_PRM_AG_MAX_LIMIT, &fval); return fval;
      case CV_CAP_PROP_XI_AEAG_LEVEL    : xiGetParamInt( hmv, XI_PRM_AEAG_LEVEL, &ival); return ival;
 +    case CV_CAP_PROP_XI_ACQ_TIMING_MODE : xiGetParamInt( hmv, XI_PRM_ACQ_TIMING_MODE, &ival); return ival;
 +    case CV_CAP_PROP_XI_BPC           : xiGetParamInt( hmv, XI_PRM_BPC, &ival); return ival;
++    case CV_CAP_PROP_XI_RECENT_FRAME  :  xiGetParamInt( hmv, XI_PRM_RECENT_FRAME, &ival); return ival;
      case CV_CAP_PROP_XI_TIMEOUT       : return timeout;
  
      }
-@@ -307,9 +309,14 @@ bool CvCaptureCAM_XIMEA::setProperty( int property_id, double value )
+@@ -307,9 +310,15 @@ bool CvCaptureCAM_XIMEA::setProperty( int property_id, double value )
      case CV_CAP_PROP_XI_AE_MAX_LIMIT  : mvret = xiSetParamInt( hmv, XI_PRM_EXP_PRIORITY, ival); break;
      case CV_CAP_PROP_XI_AG_MAX_LIMIT  : mvret = xiSetParamFloat( hmv, XI_PRM_AG_MAX_LIMIT, fval); break;
      case CV_CAP_PROP_XI_AEAG_LEVEL    : mvret = xiSetParamInt( hmv, XI_PRM_AEAG_LEVEL, ival); break;
 +    case CV_CAP_PROP_XI_ACQ_TIMING_MODE :  mvret = xiSetParamInt( hmv, XI_PRM_ACQ_TIMING_MODE, ival); break;
 +    case CV_CAP_PROP_XI_BPC           :  mvret = xiSetParamInt( hmv, XI_PRM_BPC, ival); break;
++    case CV_CAP_PROP_XI_RECENT_FRAME  : mvret = xiSetParamInt( hmv, XI_PRM_RECENT_FRAME, ival); break;
      case CV_CAP_PROP_XI_TIMEOUT       : timeout = ival; break;
      }
  
