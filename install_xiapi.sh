@@ -67,7 +67,7 @@ fi
 
 echo "installing API "
 
-cp api/X$platform_bits/libm3api.so $PREFIX/lib/libm3api.so.0.0.0 && \
+cp api/X$platform_bits/libm3api.so.0 $PREFIX/lib/libm3api.so.0.0.0 && \
 ln -snf libm3api.so.0.0.0 $PREFIX/lib/libm3api.so.0 && \
 ln -snf libm3api.so.0.0.0 $PREFIX/lib/libm3api.so
 check
