@@ -99,10 +99,6 @@ echo "installing xiSample"
 cp bin/xiSample.$platform_bits $optpath/bin/xiSample
 check
 
-echo "installing vaViewer"
-cp bin/vaViewer.$platform_bits $optpath/bin/vaViewer
-check
-
 echo "installing streamViewer"
 cp bin/streamViewer.$platform_bits $optpath/bin/streamViewer
 check
