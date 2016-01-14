@@ -50,8 +50,7 @@ index 13a4538..fd793e3 100644
 +        switch(format)
          {
          case XI_MONO8       :
--        case XI_RAW8        : frame = cvCreateImage(cvSize( image.width, image.height), IPL_DEPTH_8U, 1); break;
-+        case XI_RAW8        : frame = cvCreateImage(cvSize( image.width, image.height), IPL_DEPTH_8U, 1); printf(" NEWWWW\n"); break;
+         case XI_RAW8        : frame = cvCreateImage(cvSize( image.width, image.height), IPL_DEPTH_8U, 1); break;
          case XI_MONO16      :
          case XI_RAW16       : frame = cvCreateImage(cvSize( image.width, image.height), IPL_DEPTH_16U, 1); break;
          case XI_RGB24       :
