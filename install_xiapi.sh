@@ -41,7 +41,7 @@ VERSION_REL=`cat version_LINUX_SP.txt |cut -d "_"  -f 3|cut -d "V" -f 2`
 VERSION_MAJOR=`cat version_LINUX_SP.txt |cut -d "_"  -f 4 | sed 's/^0*//'`
 VERSION_MINOR=`cat version_LINUX_SP.txt |cut -d "_"  -f 5 | sed 's/^0*//'`
 
-echo -ne "prefix=$PREFIX\nexec_prefix=\${prefix}\nlibdir=${exec_prefix}/lib\nincludedir=\${prefix}/usr/include/\n\nName: xiapi\nDescription: ximea api\nVersion: $VERSION_REL.$VERSION_MAJOR.$VERSION_MINOR\nLibs:  -L\${libdir} -lm3api\nCflags: -I\${includedir}\n" > $PREFIX/lib/pkgconfig/xiapi.pc
+echo -ne "prefix=$PREFIX\nexec_prefix=\${prefix}\nlibdir=\${prefix}/lib\nincludedir=\${prefix}/usr/include/\n\nName: xiapi\nDescription: ximea api\nVersion: $VERSION_REL.$VERSION_MAJOR.$VERSION_MINOR\nLibs:  -L\${libdir} -lm3api\nCflags: -I\${includedir}\n" > $PREFIX/lib/pkgconfig/xiapi.pc
 check
 
 
